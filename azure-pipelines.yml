@@ -1,0 +1,37 @@
+trigger:
+- main
+
+pool: Default  # Provide you value if needed
+
+variables:
+- group: AZURE_DEVOPS_TOKENS
+
+parameters:
+- name: variable_group_filter # mask for variable group filtration
+  values:
+    - test
+- name: user_or_group_name # user or group name
+  type: string 
+  values:
+    - sergeiv.bondar@gmail.com
+
+steps:
+  - bash: |
+        az config set extension.use_dynamic_install=yes_without_prompt
+        az devops configure --defaults organization=$(System.TeamFoundationCollectionUri) project=$(System.TeamProject)
+    displayName: 'Set Azure DevOps default config'
+    
+  # - task: UsePythonVersion@0  ## Uncomment if you use Microsoft hosted agent. "Downloading python versions is not supported on self-hosted agents"
+  #   inputs:                   ## https://learn.microsoft.com/en-us/azure/devops/pipelines/tasks/reference/use-python-version-v0?view=azure-pipelines#prerequisites
+  #     versionSpec: '3.8'
+  - task: PythonScript@0
+    inputs:
+      scriptSource: 'filePath'
+      scriptPath: '$(Build.SourcesDirectory)/add_permission_azure_devOps.py'
+      arguments: '-f ${{ parameters.variable_group_filter }} -n ${{ parameters.user_or_group_name }}'
+      pythonInterpreter: '/usr/bin/python3.8' # Remove if you use Microsoft hosted agent or check(update) if you use self-hosted agents
+    displayName: 'Run Python script'
+    env:
+      AZURE_DEVOPS_EXT_PAT: $(AZURE_DEVOPS_EXT_PAT)
+      BASE_URL: $(System.TeamFoundationCollectionUri)
+      PROJECT_NAME: $(System.TeamProject)
