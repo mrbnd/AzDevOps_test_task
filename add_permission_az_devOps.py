@@ -39,7 +39,7 @@ set_up_parameters(sys.argv[1:])
 # Shell commands
 get_project_id_shell_command = f"az devops project show -p {PROJECT_NAME} --org={BASE_URL} | jq -r .id"
 get_user_id_shell_command = f"az devops user list | jq -r '.items[] | select(.user.mailAddress | test(\"{user_or_group_name}\"; \"i\")) | .id'"
-get_security_group_id_shell_command = f"az devops security group list --scope organization  | jq -r  '.graphGroups[] | select(.displayName | test(\"{user_or_group_name}\"; \"i\")) | .originId'"
+get_security_group_id_shell_command = f"az devops security group list --scope organization  | jq -r  '.graphGroups[] | select(.displayName | ascii_downcase == \"{user_or_group_name.lower()}\") | .originId'"
 get_variable_group_shell_command = f"az pipelines variable-group list | jq -r '[.[] | select(.name | test(\"{variable_group_filter}\"; \"i\"))]'"
 
 # Run shell command
