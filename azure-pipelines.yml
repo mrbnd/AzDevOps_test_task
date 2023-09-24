@@ -9,11 +9,11 @@ variables:
 parameters:
 - name: variable_group_filter # mask for variable group filtration
   values:
-    - var
+    - vAr
 - name: user_or_group_name # user or group name
   type: string 
   values:
-    - test_Group
+    - tEst_Group_proJect
 
 steps:
   - bash: |
