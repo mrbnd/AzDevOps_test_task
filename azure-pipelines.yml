@@ -27,7 +27,7 @@ steps:
   - task: PythonScript@0
     inputs:
       scriptSource: 'filePath'
-      scriptPath: '$(Build.SourcesDirectory)/add_permission_azure_devOps.py'
+      scriptPath: '$(Build.SourcesDirectory)/add_permission_az_devOps.py'
       arguments: '-f ${{ parameters.variable_group_filter }} -n ${{ parameters.user_or_group_name }}'
       pythonInterpreter: '/usr/bin/python3.8' # Remove if you use Microsoft hosted agent or check(update) if you use self-hosted agents
     displayName: 'Run Python script'
