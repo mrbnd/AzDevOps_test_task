@@ -9,7 +9,7 @@ variables:
 parameters:
 - name: variable_group_filter # mask for variable group filtration
   values:
-    - test
+    - var
 - name: user_or_group_name # user or group name
   type: string 
   values:
