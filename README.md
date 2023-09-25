@@ -1,7 +1,7 @@
   
 # AzDevOps_test_task
 ## Task:
-Assign a user or a group Administrator rights to variable groups that contain a specific string (mask).
+Assign a user or a group Administrator rights to variable groups that contain a specific string (mask) the name.
 This repo contains 2 versions of the solution:
 1. add_permisson.py (should work on any machine with python3.8)
 2. add_permission_az_devOps.py and azure-pipelines.yml (should work on Azure pipeline)
@@ -10,7 +10,7 @@ This repo contains 2 versions of the solution:
 Generate Personal Access Token (PAT) [`link`](https://learn.microsoft.com/en-us/azure/devops/organizations/accounts/use-personal-access-tokens-to-authenticate?view=azure-devops&tabs=Windows)
 Solution was tested with (Scopes: Full access)
 ## First solution - add_permisson.py:
-1. Add project your parameters to add_permisson.py
+1. Add your project parameters to add_permisson.py
 ```python
 PERSONAL_ACCESS_TOKEN = ''
 PROJECT_NAME = ''
@@ -18,7 +18,7 @@ ORGANIZATION_NAME = ''
 ```
 2. Usage syntax
 ```bash
-python3 add_permission.py -f -n
+python3 add_permission.py -f <filter> -n <user_or_group_name>
 ```
 3. Example (this script adds test@gmail.com permission to variable groups contains "test" in name). Case-insensitive.
 ```bash
